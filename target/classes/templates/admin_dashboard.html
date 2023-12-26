@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>Welcome to the Admin Dashboard</h1>
+
+<!-- Display Sessions -->
+<h2>Sessions</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Tutor</th>
+            <th>Description</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+   <tbody>
+    <tr th:each="mySession : ${sessions}">
+        <td th:text="${mySession.id}"></td>
+        <td th:text="${mySession.date}"></td>
+        <td th:text="${mySession.tuteur.fullname}"></td>
+        <td th:text="${mySession.description}"></td>
+        <!-- Add more cells as needed -->
+    </tr>
+</tbody>
+</table>
+
+<!-- Display Users -->
+<h2>Users</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Fullname</th>
+            <th>Role</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.fullname}"></td>
+            <td th:text="${user.role}"></td>
+            <!-- Add more cells as needed -->
+        </tr>
+    </tbody>
+</table>
+<div>
+    <p>Total Sessions: <span th:text="${totalSessions}"></span></p>
+    <p>Total Users: <span th:text="${totalUsers}"></span></p>
+</div>
+
+<!-- Graphique avec les statistiques -->
+<canvas id="myChart"></canvas>
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Total Sessions', 'Total Users'],
+            datasets: [{
+                label: 'Statistics',
+                data: [/* Utilisez les variables Thymeleaf ici, par exemple, ${totalSessions}, ${totalUsers} */],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

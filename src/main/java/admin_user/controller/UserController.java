@@ -1,6 +1,7 @@
 package admin_user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import admin_user.dto.UserDto;
+
+
 import admin_user.service.UserService;
 
 import java.security.Principal;
@@ -19,9 +23,13 @@ public class UserController {
 
     @Autowired
     UserDetailsService userDetailsService;
+    
+ 
 
     @Autowired
     private UserService userService;
+    
+
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {

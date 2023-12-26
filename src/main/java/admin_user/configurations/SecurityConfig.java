@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .requestMatchers("/etudiant-page").hasAuthority("ETUDIANT")
                 .requestMatchers("/user-page").hasAnyAuthority("ADMIN", "TUTEUR", "ETUDIANT")
                 .requestMatchers("/registration", "/css/**").permitAll()
+                .requestMatchers("/admin_dashboard").hasAuthority("ADMIN")
                 .anyRequest().authenticated())
 
         .formLogin(form -> form

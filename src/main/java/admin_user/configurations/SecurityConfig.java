@@ -35,20 +35,29 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		
 		http.csrf(c -> c.disable())
-		
-		.authorizeHttpRequests(request -> request.requestMatchers("/admin-page")
-				.hasAuthority("ADMIN").requestMatchers("/user-page").hasAuthority("USER")
-				.requestMatchers("/registration", "/css/**").permitAll()
-				.anyRequest().authenticated())
-		
-		.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
-				.successHandler(customSuccessHandler).permitAll())
-		
-		.logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login?logout").permitAll());
-		
-		return http.build();
+        .authorizeHttpRequests(request -> request
+                .requestMatchers("/admin-page").hasAuthority("ADMIN")
+                .requestMatchers("/tuteur-page").hasAuthority("TUTEUR")
+                .requestMatchers("/etudiant-page").hasAuthority("ETUDIANT")
+                .requestMatchers("/user-page").hasAnyAuthority("ADMIN", "TUTEUR", "ETUDIANT")
+                .requestMatchers("/registration", "/css/**").permitAll()
+                .anyRequest().authenticated())
+
+        .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")  // Ensure this matches the form action
+                .successHandler(customSuccessHandler)
+                .permitAll())
+
+
+        .logout(form -> form
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll());
+
+return http.build();
 		
 	}
 	

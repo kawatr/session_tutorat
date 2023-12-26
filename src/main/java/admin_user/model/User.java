@@ -1,84 +1,80 @@
 package admin_user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	private String email;
-	private String password;
-	private String role;
-	private String fullname;
-	
-	public User() {
-		super();
-	}
 
-	public User(String email, String password, String role, String fullname) {
-		
-		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.fullname = fullname;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    private String email;
+    private String password;
+    private String role;
+    private String fullname;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToMany(mappedBy = "etudiants")
+    private Set<SessionTutorat> sessions;
 
-	public String getEmail() {
-		return email;
-	}
+    public User() {
+        super();
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public User(String email, String password, String role, String fullname) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.fullname = fullname;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getFullname() {
-		return fullname;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public Set<SessionTutorat> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(Set<SessionTutorat> sessions) {
+        this.sessions = sessions;
+    }
 }

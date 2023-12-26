@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: admin_user.CodingtechniquesTutorialApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.413 s - in admin_user.CodingtechniquesTutorialApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.031 s - in admin_user.CodingtechniquesTutorialApplicationTests

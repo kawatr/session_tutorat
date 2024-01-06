@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0e2433;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #45b6fe;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #0e2433;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #45b6fe;
+        }
+
+        a {
+            color: whitesmoke;
+            margin: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #45b6fe;
+            color: white;
+        }
+
+    </style>
+<body>
+<div class="header">
+    <h1>ADMIN Dashboard</h1>
+</div>
+<div class="container">
+    <h2>Gestion etudiant</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full name</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="etudiant : ${etudiants}">
+            <td th:text="${etudiant.id}"></td>
+            <td>
+                <span class="text-value" th:text="${etudiant.fullname}"></span>
+                <input class="edit-input" type="text" th:value="${etudiant.fullname}" style="display: none;" />
+            </td>
+            <td>
+                <span class="text-value" th:text="${etudiant.email}"></span>
+                <input class="edit-input" type="text" th:value="${etudiant.email}" style="display: none;" />
+            </td>
+            <td>
+                <button onclick="toggleEdit(this)">Edit</button>
+                <button onclick="saveEdit(this)" style="display: none;">Save</button>
+                <button onclick="cancelEdit(this)" style="display: none;">Cancel</button>
+            </td>
+            <td>
+                <button th:onclick="'javascript:promptRemoveEtudiant(' + ${etudiant.id} + ');'">Remove</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<!-- Additional scripts -->
+<script>
+    function toggleEdit(button) {
+        var row = button.parentNode.parentNode;
+        var inputFields = row.getElementsByClassName("edit-input");
+
+        var saveButton = Array.from(row.querySelectorAll("button")).find(btn => containsText(btn, 'Save'));
+        var cancelButton = Array.from(row.querySelectorAll("button")).find(btn => containsText(btn, 'Cancel'));
+
+        var textValues = row.getElementsByClassName("text-value");
+
+        for (var i = 0; i < inputFields.length; i++) {
+            if (inputFields[i].style.display === "none") {
+                inputFields[i].style.display = "block";
+                textValues[i].style.display = "none";
+                saveButton.style.display = "inline";
+                cancelButton.style.display = "inline";
+                button.style.display = "none";
+            } else {
+                inputFields[i].style.display = "none";
+                textValues[i].style.display = "inline";
+                saveButton.style.display = "none";
+                cancelButton.style.display = "none";
+                button.style.display = "inline";
+            }
+        }
+    }
+
+    // Custom function to check if an element contains specified text
+    function containsText(element, text) {
+        return element.textContent.indexOf(text) !== -1;
+    }
+
+
+    function promptRemoveEtudiant(etudiantId) {
+        var confirmation = confirm("Are you sure you want to remove this etudiant?");
+        if (confirmation) {
+            fetch('/etudiants/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: etudiantId
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.alert("Etudiant deleted successfully!: " + etudiantId);
+                        window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    window.alert('Error removing etudiant: ' + error.message);
+                });
+        }
+    }
+
+    function saveEdit(button) {
+        var row = button.parentNode.parentNode;
+        var inputFields = row.getElementsByClassName("edit-input");
+        var etudiantId = row.querySelector("td:first-child").innerText;
+
+        var data = {
+            id: etudiantId,
+            fullname: inputFields[0].value,
+            email: inputFields[1].value
+        };
+
+        fetch('/etudiants/update', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    window.alert('Error updating etudiant: ' + error.message);
+                }
+                toggleEdit(button);
+                window.location.reload();
+            })
+            .catch(error => {
+                window.alert('Error updating etudiant: ' + error.message);
+            });
+    }
+
+
+    function cancelEdit(button) {
+        var row = button.parentNode.parentNode;
+        var inputFields = row.getElementsByClassName("edit-input");
+
+        var saveButton = Array.from(row.querySelectorAll("button")).find(btn => containsText(btn, 'Save'));
+        var cancelButton = Array.from(row.querySelectorAll("button")).find(btn => containsText(btn, 'Cancel'));
+        var editButton = Array.from(row.querySelectorAll("button")).find(btn => containsText(btn, 'Edit'));
+
+        var textValues = row.getElementsByClassName("text-value");
+
+        for (var i = 0; i < inputFields.length; i++) {
+            inputFields[i].style.display = "none";
+            textValues[i].style.display = "inline";
+            saveButton.style.display = "none";
+            cancelButton.style.display = "none";
+            editButton.style.display = "inline";
+        }
+    }
+</script>
+</body>
+</html>

@@ -5,8 +5,13 @@ import org.springframework.stereotype.Repository;
 
 import admin_user.model.User;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     
 	User findByEmail (String email);
+
+
+	List<User> findUsersByRole (String role);
 }

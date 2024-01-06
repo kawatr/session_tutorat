@@ -1,5 +1,7 @@
 package admin_user.controller;
 
+import admin_user.model.User;
+import admin_user.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +15,7 @@ import admin_user.dto.UserDto;
 import admin_user.service.UserService;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -21,7 +24,7 @@ public class UserController {
     UserDetailsService userDetailsService;
 
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -54,17 +57,17 @@ public class UserController {
         return "admin";
     }
 
-    @GetMapping("/tuteur-page")
-    public String tuteurPage(Model model, Principal principal) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", userDetails);
-        return "tuteur";
-    }
-
     @GetMapping("/etudiant-page")
     public String etudiantPage(Model model, Principal principal) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         model.addAttribute("user", userDetails);
         return "etudiant";
+    }
+
+    @GetMapping("/tuteur-page")
+    public String tuteurPage(Model model, Principal principal) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+        model.addAttribute("user", userDetails);
+        return "tuteur";
     }
 }

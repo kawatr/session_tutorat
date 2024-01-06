@@ -36,6 +36,11 @@
             color: #45b6fe;
         }
 
+        a {
+            color: whitesmoke;
+            margin: 12px;
+        }
+
         /* Add more styles and components for your dashboard here */
     </style>
 </head>
@@ -49,9 +54,13 @@
         <span sec:authorize="isAuthenticated">
         <a th:href="@{/logout}">
          Logout
-        
         </a>
-        
+        <a th:href="@{/tuteurs}">
+         Gestion tut
+        </a>
+        <a th:href="@{/etudiants}">
+         Gestion etudiant
+        </a>
         </span>
 
     </div>

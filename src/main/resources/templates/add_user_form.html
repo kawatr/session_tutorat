@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyPIBEn6e3GA8dZIfIT" crossorigin="anonymous">
+    <!-- Your custom styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .form-container h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+        }
+
+        .form-container button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Add User</h2>
+        <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>
+
+        <form th:action="@{/admin/users/add}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" id="email" th:field="*{email}" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" />
+            </div>
+            <div class="form-group">
+                <label for="fullname">Fullname:</label>
+                <input type="text" class="form-control" id="fullname" th:field="*{fullname}" />
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select class="form-control" id="role" th:field="*{role}">
+                    <option value="TUTEUR">TUTEUR</option>
+                    <option value="ETUDIANT">ETUDIANT</option>
+                </select>
+            </div>
+            <!-- Add other fields as needed -->
+
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-XFJbe3B1q1SKs1cJv6OOfS1SA3zp5Gp2RbHA5/36eaI9SObh/HJ87dzxCJmjzD"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyPIBEn6e3GA8dZIfIT" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

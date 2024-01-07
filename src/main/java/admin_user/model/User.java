@@ -1,13 +1,11 @@
 package admin_user.model;
 
 import jakarta.persistence.*;
-
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -78,5 +76,12 @@ public class User implements Serializable {
 
     public void setSessions(Set<SessionTutorat> sessions) {
         this.sessions = sessions;
+    }
+    public String getUserType() {
+        return role;
+    }
+
+    public void setUserType(String role) {
+        this.role = role;
     }
 }

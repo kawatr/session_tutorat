@@ -30,17 +30,25 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
+	 @Bean
+	    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
+	
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		
 		http.csrf(c -> c.disable())
         .authorizeHttpRequests(request -> request
+        		.requestMatchers("/", "/home").permitAll()
+        		.requestMatchers("/", "/home", "/registration", "/css/**", "/images/**").permitAll()
                 .requestMatchers("/admin-page").hasAuthority("ADMIN")
                 .requestMatchers("/tuteur-page").hasAuthority("TUTEUR")
                 .requestMatchers("/etudiant-page").hasAuthority("ETUDIANT")
                 .requestMatchers("/user-page").hasAnyAuthority("ADMIN", "TUTEUR", "ETUDIANT")
                 .requestMatchers("/registration", "/css/**").permitAll()
+                .requestMatchers("/admin_dashboard").hasAuthority("ADMIN")
                 .anyRequest().authenticated())
 
         .formLogin(form -> form
@@ -64,6 +72,7 @@ return http.build();
 	@Autowired
 	public void configure (AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+		
 	}
 
 }

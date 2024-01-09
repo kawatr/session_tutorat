@@ -1,8 +1,8 @@
 package admin_user.controller;
 
-import admin_user.model.User;
-import admin_user.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -11,20 +11,50 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import admin_user.dto.UserDto;
+
+import admin_user.repositories.UserRepository;
 import admin_user.service.UserService;
 
+
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class UserController {
 
     @Autowired
     UserDetailsService userDetailsService;
+    @Autowired
+    UserRepository userRepository;
+    
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+    
+
+    @GetMapping("/")
+    public String home(Model model, Principal principal) {
+        if (principal != null) {
+            // Si un utilisateur est déjà connecté, redirigez-le vers la page appropriée
+            UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+            model.addAttribute("user", userDetails);
+
+            // Ajoutez une logique supplémentaire si nécessaire pour rediriger vers la page spécifique
+            if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                return "redirect:/admin-page";
+            } else if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_TUTEUR"))) {
+                return "redirect:/tuteur-page";
+            } else if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ETUDIANT"))) {
+                return "redirect:/etudiant-page";
+            } else {
+                return "redirect:/user-page";
+            }
+        }
+
+        // Si aucun utilisateur n'est connecté, affichez directement la page d'accueil
+        return "home";
+    }
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -57,17 +87,19 @@ public class UserController {
         return "admin";
     }
 
-    @GetMapping("/etudiant-page")
-    public String etudiantPage(Model model, Principal principal) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", userDetails);
-        return "etudiant";
-    }
-
     @GetMapping("/tuteur-page")
     public String tuteurPage(Model model, Principal principal) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         model.addAttribute("user", userDetails);
         return "tuteur";
     }
+
+    @GetMapping("/etudiant-page")
+    public String etudiantPage(Model model, Principal principal) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+        model.addAttribute("user", userDetails);
+        return "etudiant";
+    }
+    
+    
 }

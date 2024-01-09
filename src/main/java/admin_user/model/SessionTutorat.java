@@ -1,6 +1,8 @@
 package admin_user.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -17,7 +19,7 @@ public class SessionTutorat {
     private String dateCreation;
 
     @Column(name = "session_date_planifiee")
-    private String sessionDatePlanifiee;
+    private LocalDate sessionDatePlanifiee; // Mettez à jour le type ici
 
     private String description;
 
@@ -39,7 +41,7 @@ public class SessionTutorat {
         super();
     }
 
-    public SessionTutorat(String date, String dateCreation, String sessionDatePlanifiee, String description, String nom, User tuteur, Set<User> etudiants) {
+    public SessionTutorat(String date, String dateCreation, LocalDate sessionDatePlanifiee, String description, String nom, User tuteur, Set<User> etudiants) {
         this.date = date;
         this.dateCreation = dateCreation;
         this.sessionDatePlanifiee = sessionDatePlanifiee;
@@ -73,11 +75,11 @@ public class SessionTutorat {
         this.dateCreation = dateCreation;
     }
 
-    public String getSessionDatePlanifiee() {
+    public LocalDate getSessionDatePlanifiee() {
         return sessionDatePlanifiee;
     }
 
-    public void setSessionDatePlanifiee(String sessionDatePlanifiee) {
+    public void setSessionDatePlanifiee(LocalDate sessionDatePlanifiee) {
         this.sessionDatePlanifiee = sessionDatePlanifiee;
     }
 

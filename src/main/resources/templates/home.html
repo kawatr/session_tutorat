@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Université Privée de Fès - Gestion des Tutorats</title>
+
+    <!-- Ajoutez le lien vers la bibliothèque Bootstrap (utilisation du CDN) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Styles pour uniformiser la taille des images -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+            background-color: #17a2b8;
+        }
+
+        .jumbotron {
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+        }
+
+        .jumbotron h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .jumbotron p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .container p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        body {
+    background-color: #f8f9fa; /* Couleur principale de fond */
+}
+
+
+        .img-container {
+            height: 300px; /* Hauteur fixe pour les images */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+             }  
+
+        .img-container img {
+            
+            height: auto;
+            object-fit: cover; 
+              /* Ajuste la taille de l'image sans déformer la proportion */
+        }
+
+        .tutorat-card {
+            margin-bottom: 20px;
+        }
+
+        .tutorat-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Université Privée de Fès</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Connexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Bannière -->
+    <div class="jumbotron">
+		<div class="col-md-12 text-center">
+        <h1 class="display-4">Gestion des Tutorats</h1>
+        <p class="lead">L'Université Privée de Fès offre un programme de tutorat complet pour soutenir nos étudiants dans leur parcours académique.</p>
+        <hr class="my-4">
+        <p>Nos tuteurs qualifiés fournissent une assistance personnalisée, des sessions de mentorat et des ressources supplémentaires pour garantir la réussite de chaque étudiant. Rejoignez notre communauté académique et découvrez les avantages de notre programme de tutorat exceptionnel.</p>
+    </div>
+</div>
+    <!-- Contenu de la page -->
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+           
+            <p>L’Université Privée de Fès est la première université privée Reconnue par l’État au niveau de la capitale spirituelle et culturelle du royaume du Maroc. Elle est composée de quatre structures indépendantes notamment la Faculté des Sciences de l’Ingénieur, la Fès Business School, l’Institut des Hautes Études Juridiques et Sociales et l’Ecole Supérieure des Métiers de l’Architecture et du Bâtiment, elle offre le choix entre un parcours d’Ingénieur d’état ou de Master « Bac+5 », ou un parcours Bachelor « Bac +4 », avec plus de 20 spécialités les plus convoitées par les entreprises nationales et multinationales.</p>
+        </div>
+        <div class="col-md-6">
+            <div class="img-container">
+                <img src="images/upf.jpg" alt="Image à propos de l'université" class="img-fluid" style="width: 600px">
+            </div>
+        </div>
+    </div>
+            <div class="container">
+    <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+           
+            <p style="margin-left:-16px;">Toute l’organisation de l’Universitéì Privée de Fès, ses équipes pédagogique et scientifique, son administration, ainsi que les moyens dont elle dispose sont mobilisés pour accomplir les missions principales de l’université, entre autres :
+
+– Dispenser aux étudiants une formation de qualité : une attention particulière est portée à la qualitéì de l’enseignement dans le contexte d’une universitéì à dimension humaine, s’appuyant sur la disponibilitéì et la proximitéì de ses enseignants ;
+
+– Préparer les étudiants à leur vie professionnelle tout en favorisant leur développement intellectuel, culturel et humain : au-delà du contenu des formations, l’entraînement intensif à la réflexion, à la critique, à l’argumentation et à la recherche d’informations induit des compétences indispensables à des citoyens responsables, véritables acteurs de la société de demain.</p>
+        </div>
+        <div class="col-md-6">
+            <div class="img-container">
+                <img src="images/oip.jpg" alt="Image à propos de l'université" class="img-fluid" style="height: 400px;width: 820px; margin-top: 120px;">
+            </div>
+        </div>
+    </div>
+    
+    
+    
+ <br> <br>
+        <!-- Section sur la gestion des tutorats -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Gestion des Tutorats</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card tutorat-card">
+                    <img src="images/tutorat.jpg" class="card-img-top" alt="Tutorat Image 1" style="height: 230px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Séances de Tutorat Personnalisées</h5>
+                        <p class="card-text">Des séances individuelles pour un suivi personnalisé des étudiants.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card tutorat-card">
+                    <img src="images/tutorat1.jpg" class="card-img-top" alt="Tutorat Image 2" style="height: 230px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Sessions de Mentorat</h5>
+                        <p class="card-text">Des sessions de mentorat pour guider les étudiants dans leur parcours académique.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card tutorat-card">
+                    <img src="images/tutorat2.jpg" class="card-img-top" alt="Tutorat Image 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Ressources Supplémentaires</h5>
+                        <p class="card-text">Fourniture de ressources supplémentaires pour renforcer la compréhension des cours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ajoutez le lien vers la bibliothèque jQuery et Bootstrap JS (utilisation du CDN) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<footer style=" background-color: #17a2b8;">
+        <div class="container text-center text-white">
+            <p>Contactez-nous :</p>
+            <p>Email: contact@universite-fes.ma</p>
+            <p>Téléphone: +212 123 456 789</p>
+        </div>
+    </footer>
+</body>
+</html>

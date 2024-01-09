@@ -4,9 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-     <link rel="stylesheet" th:href="@{../css/styles.css}">
+    <style>
+		
+		body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Couleur de fond similaire à la page d'accueil */
+    color: #343a40; /* Couleur du texte principale (gris foncé) */
+}
+
+.container {
+    max-width: 400px;
+    margin: auto; /* Ajout de cette ligne pour centrer le conteneur horizontalement */
+    padding: 20px;
+    margin-top: 50px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     background-image: url('images/back.jpg'); /* Remplacez 'chemin/vers/votre/image.jpg' par le chemin de votre image */
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir tout le conteneur */
+    background-position: center; /
+}
+
+
+h2 {
+    color: #007bff; /* Couleur d'accentuation pour le titre (bleu) */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #007bff; /* Couleur d'accentuation pour les étiquettes (bleu) */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da; /* Couleur de la bordure (gris clair) */
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #007bff; /* Couleur d'accentuation pour le bouton (bleu) */
+    color: #ffffff; /* Couleur du texte du bouton (blanc) */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Couleur d'accentuation au survol (bleu foncé) */
+}
+
+p {
+    margin-top: 15px;
+    color: #6c757d; /* Couleur du texte secondaire (gris) */
+}
+
+a {
+    color: #007bff; /* Couleur d'accentuation pour les liens (bleu) */
+}
+
+	</style>
 </head>
-<body>
+<body style="text-align:center ;">
     <div class="container">
         <div class="message" th:if="${message != null}">
            [[${message}]]
@@ -32,6 +102,13 @@
                 <label for="password">Password:</label>
                 <input th:field="*{password}" type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
+             <div class="form-group">
+        <label for="role">User Type:</label>
+        <select th:field="*{role}" id="role" name="role" required>
+            <option value="TUTEUR">TUTEUR</option>
+            <option value="ETUDIANT">ETUDIANT</option>
+        </select>
+    </div>
             <input type="submit" value="Register">
         </form>
         <p>Already have an account? <a th:href="@{/login}">Login here</a>.</p>
